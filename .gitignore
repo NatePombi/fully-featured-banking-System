@@ -1,0 +1,27 @@
+# === Java build files ===
+*.class
+*.jar
+*.war
+*.ear
+
+# === IntelliJ IDEA ===
+.idea/
+*.iml
+*.iws
+out/
+
+# === VS Code ===
+.vscode/
+
+# === macOS ===
+.DS_Store
+
+
+# === OS or Editor Backups ===
+*.swp
+*.swo
+*~
+
+# === Temporary Files ===
+tmp/
+temp/

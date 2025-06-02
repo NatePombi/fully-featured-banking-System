@@ -1,0 +1,116 @@
+# Fully Featured Banking System
+
+A fully functional console-based banking system built in Java. It includes secure user authentication, account and transaction management, and persistent storage using a relational database. The application follows object-oriented design principles and a modular architecture for maintainability and scalability.
+## Overview
+
+This project simulates a simple banking system supporting multiple users, each with one or more bank accounts. Users can perform deposits, withdrawals, and transfers. All actions are logged in transaction history and persisted in a database.
+
+## Features
+
+- User Authentication
+  - Registration and login system
+  - Password hashing with salt for security
+
+- Account Management
+  - Support for multiple accounts per user
+  - Account type, ID, and balance stored in the database
+
+- Transaction Management
+  - Deposit, withdraw, and transfer funds
+  - Transaction history with timestamps
+
+- Testing
+  - Unit tests for core logic and services
+  - Integration tests for database operations
+
+- Modular Design
+  - Uses interfaces and separation of concerns
+  - Follows SOLID principles
+
+- Database Integration
+  - JDBC-based connection to MySQL
+  - Data persistence for users, accounts, and transactions
+
+## Technologies Used
+
+- Java 17
+- JDBC
+- MySQL
+- JUnit
+- Git and GitHub
+- No Maven/Gradle needed
+
+## Project Structure
+
+src/
+├── app/
+├── exception/
+├── model/
+├── repository/
+├── service/
+├── test/
+├── ui/
+└── util/
+
+
+---
+
+
+## Setting Up the H2 Database
+
+1. No manual setup required
+   The application uses the embedded H2 database engine. All database files are stored in:
+
+2. Configure your H2 JDBC connection
+In `dbFunction.java`, ensure your JDBC URL looks like this:
+```java
+  String url = "jdbc:h2:./data/bankingdbz";
+        String name = "bnk";
+        String password = "";
+
+3. Run the application
+Compile and run the BankingApp class which is in the app folder. The app will connect to the H2 database automatically.
+
+4. View the database contents
+You can use the H2 Console (GUI) or any tool that supports .db files if you want to inspect your data.
+
+
+## Using MySQL Database (For Production)
+
+1. Install and configure MySQL server.
+2. Create a database schema and user for the banking system.
+3. Update JDBC connection settings in your configuration or dbFunction.java accordingly.
+4. Run the application. It will connect to the MySQL database for persistent storage.
+
+
+## Running the Application
+    Compile and run the Main class from the app package.
+    Follow on-screen prompts in the console UI to register, login, and manage accounts.
+
+## Testing
+    Unit tests are located in the test package and use JUnit.
+    Integration tests cover database operations.
+    Run tests using your IDE or build tool (e.g., Maven, Gradle).
+
+## Future Work
+    Add full-stack frontend integration using JavaFX or React for improved user experience.
+    Implement additional account types and banking features.
+    Enhance security measures (e.g., multi-factor authentication).
+
+## Author
+    Nathan Pombi
+    Java Developer | Passionate about Clean Code & Real-World Applications
+    GitHub: https://github.com/NatePombi
+    LinkedIn: https://www.linkedin.com/in/nathanpombi/
+
+## Future Work
+    Add full-stack frontend integration using JavaFX or React for improved user experience.
+    Implement additional account types and banking features.
+    Enhance security measures (e.g., multi-factor authentication).
+
+
+## Recruiter Notes
+ Built entirely with Java, JDBC, MySQL, JUnit, and Mockito
+ Includes comprehensive test coverage (unit + integration)
+ Modular, testable architecture following best practices
+ Next step: full-stack frontend migration (JavaFX/React)
