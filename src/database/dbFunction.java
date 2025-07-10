@@ -1,21 +1,57 @@
 package database;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
+/*
 
-public class dbFunction {
+ */
+public class DBFunction {
+    private static final String PROPERTIES_FILE = "/database/db.properties";
+    private static final Logger log = LoggerFactory.getLogger(DBFunction.class);
+    private static final HikariDataSource dataSource;
 
+    static {
+        try(InputStream inputStream = DBFunction.class.getResourceAsStream(PROPERTIES_FILE)){
+            Properties prop = new Properties();
+
+            if(inputStream == null){
+                log.warn("Cannot find properties {}",PROPERTIES_FILE);
+                throw new IllegalStateException("Cannot find properties " + PROPERTIES_FILE);
+            }
+
+            prop.load(inputStream);
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl(prop.getProperty("db.url"));
+            config.setUsername(prop.getProperty("db.name"));
+            config.setPassword(prop.getProperty("db.password"));
+
+            config.setMaximumPoolSize(Integer.parseInt(prop.getProperty("hikari.maximumPoolSize","10")));
+            config.setMinimumIdle(Integer.parseInt(prop.getProperty("hikari.minimumIdle","2")));
+            config.setIdleTimeout(Long.parseLong(prop.getProperty("hikari.idleTimeout","60000")));
+            config.setConnectionTimeout(Long.parseLong(prop.getProperty("hikari.connectionTimeout","30000")));
+
+            dataSource = new HikariDataSource(config);
+        }
+        catch (IOException e){
+            log.error("SQL Error",e);
+            throw new RuntimeException(e);
+        }
+    }
     public static Connection getConnection() throws SQLException {
-        String url = "jdbc:h2:./data/bankingdbz";
-        String name = "bnk";
-        String password = "";
-
-        return DriverManager.getConnection(url,name,password);
+        return dataSource.getConnection();
     }
 
-    public static void databaseInit(){
+    public static void databaseInit() throws SQLException {
         String createUserTable = """
                 CREATE TABLE IF NOT EXISTS users (
                                         username VARCHAR(50) PRIMARY KEY,
@@ -52,7 +88,7 @@ public class dbFunction {
 
 
 
-        try(Connection con =dbFunction.getConnection();
+        try(Connection con = DBFunction.getConnection();
             Statement stm = con.createStatement()
         ){
             stm.execute(createUserTable);
@@ -60,8 +96,10 @@ public class dbFunction {
             stm.execute(createTransactionTable);
 
         }
-        catch (Exception e){
-            System.out.println("Error: " + e.getMessage());
+        catch (SQLException e){
+            log.error("SQL Error", e);
+            throw e;
+
         }
 
 
