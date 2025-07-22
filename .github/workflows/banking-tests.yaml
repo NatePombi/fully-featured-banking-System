@@ -12,19 +12,17 @@ jobs:
 
     services:
       mysql:
-        image: mysql:8
+        image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: rootpassword
           MYSQL_DATABASE: bankingTest
-          MYSQL_USER: root
-          MYSQL_PASSWORD: MasokoBums
+          MYSQL_ROOT_PASSWORD: MasokoBums
         ports:
           - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=3
+          --health-retries=10
 
     env:
       DB_TEST_URL: jdbc:mysql://127.0.0.1:3306/bankingTest
