@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bootstrap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FullyFeaturedBankingApp</a> &gt; <a href="index.source.html" class="el_package">com.nate.app</a> &gt; <span class="el_source">Bootstrap.java</span></div><h1>Bootstrap.java</h1><pre class="source lang-java linenums">package com.nate.app;
+
+import com.nate.database.*;
+import com.nate.service.*;
+import com.nate.ui.InputHandler;
+import com.nate.ui.MenuRenderer;
+import com.nate.ui.Start;
+import com.nate.util.*;
+
+import java.util.Scanner;
+
+<span class="nc" id="L12">public class Bootstrap {</span>
+    public static Start init(){
+
+<span class="nc" id="L15">        ExceptionHandler exceptionHandler = new ExceptionHandler();</span>
+<span class="nc" id="L16">        Scanner scanner = new Scanner(System.in);</span>
+<span class="nc" id="L17">        ScannerError scannerError = new ScannerError(scanner);</span>
+<span class="nc" id="L18">        PromptMessage promptMessage = new PromptMessage(scannerError);</span>
+<span class="nc" id="L19">        InputHandler inputHandler = new InputHandler(scanner,scannerError);</span>
+<span class="nc" id="L20">        ITransactionDao transactionDao = new TransactionDao();</span>
+<span class="nc" id="L21">        IAccountDao accountDao = new AccountDao(transactionDao);</span>
+<span class="nc" id="L22">        UserRepo userRepo = new UserRepo();</span>
+<span class="nc" id="L23">        IUserDao userDao = new UserDao();</span>
+<span class="nc" id="L24">        ISessionService service = new SessionService();</span>
+<span class="nc" id="L25">        IUserService userService = new UserService(service,userDao);</span>
+<span class="nc" id="L26">        MenuRenderer menuRenderer = new MenuRenderer(service);</span>
+<span class="nc" id="L27">        FindAccount findAccount = new FindAccount(transactionDao,accountDao);</span>
+<span class="nc" id="L28">        NoAccountPresent noAccountPresent = new NoAccountPresent(service);</span>
+<span class="nc" id="L29">        OwnershipValidation ownershipValidation = new OwnershipValidation(service);</span>
+<span class="nc" id="L30">        IAccountService accountService = new AccountService(service,accountDao,transactionDao,userRepo,findAccount,ownershipValidation);</span>
+<span class="nc" id="L31">        IBankingService bankingService = new BankingService(service,transactionDao,accountDao,userRepo,findAccount,ownershipValidation);</span>
+
+<span class="nc" id="L33">        return new Start(userService,service,accountService,userRepo,bankingService,menuRenderer,inputHandler,exceptionHandler,noAccountPresent,promptMessage);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

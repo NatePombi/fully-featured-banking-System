@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: Test.ui.StartTest$DepositUI
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.63 s -- in Test.ui.StartTest$DepositUI

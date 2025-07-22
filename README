@@ -19,6 +19,18 @@ This project simulates a simple banking system supporting multiple users, each w
   - Deposit, withdraw, and transfer funds
   - Transaction history with timestamps
 
+
+- Logging
+   - Uses Logback (via SLF4J) for logging warnings, errors, and system activity
+   - Configured with custom logback.xml
+
+- Connection Pooling
+   - Uses HikariCP for high-performance JDBC connection pooling
+   - Config loaded from external db.properties
+
+- Manual Transactions
+   - Explicit transaction commit and rollback for data consistency
+
 - Testing
   - Unit tests for core logic and services
   - Integration tests for database operations
@@ -36,6 +48,8 @@ This project simulates a simple banking system supporting multiple users, each w
 - Java 17
 - JDBC
 - MySQL
+- HikariCP
+- Logback + SLF4J
 - JUnit
 - Git and GitHub
 - No Maven/Gradle needed
@@ -53,34 +67,20 @@ src/
 └── util/
 
 
----
+----
 
 
-## Setting Up the H2 Database
+## Setting Up MySQL
 
-1. No manual setup required
-   The application uses the embedded H2 database engine. All database files are stored in:
+1. Install MySQL and create a banking database.
 
-2. Configure your H2 JDBC connection
-In `dbFunction.java`, ensure your JDBC URL looks like this:
-```java
-  String url = "jdbc:h2:./data/bankingdbz";
-        String name = "bnk";
-        String password = "";
-
-3. Run the application
-Compile and run the BankingApp class which is in the app folder. The app will connect to the H2 database automatically.
-
-4. View the database contents
-You can use the H2 Console (GUI) or any tool that supports .db files if you want to inspect your data.
+2. Configure db.properties
+db.url=jdbc:mysql://localhost:3306/banking  -> add your own configurations
+db.name=root
+db.password=yourpassword
 
 
-## Using MySQL Database (For Production)
-
-1. Install and configure MySQL server.
-2. Create a database schema and user for the banking system.
-3. Update JDBC connection settings in your configuration or dbFunction.java accordingly.
-4. Run the application. It will connect to the MySQL database for persistent storage.
+3. Run the app — it will auto-create necessary tables.
 
 
 ## Running the Application

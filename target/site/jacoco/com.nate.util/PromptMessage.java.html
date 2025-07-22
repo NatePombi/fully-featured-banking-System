@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PromptMessage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FullyFeaturedBankingApp</a> &gt; <a href="index.source.html" class="el_package">com.nate.util</a> &gt; <span class="el_source">PromptMessage.java</span></div><h1>PromptMessage.java</h1><pre class="source lang-java linenums">package com.nate.util;
+
+
+
+import java.math.BigDecimal;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class PromptMessage {
+
+    private ScannerError scannerErr;
+<span class="fc" id="L12">    public PromptMessage(ScannerError scanner){</span>
+<span class="fc" id="L13">        this.scannerErr = scanner;</span>
+<span class="fc" id="L14">    }</span>
+
+    // Prompts the user for a BigDecimal input and validates it
+    public BigDecimal promptBigDec(String message){
+      BigDecimal input;
+        while(true){
+<span class="fc" id="L20">            System.out.print(message);</span>
+            try{
+<span class="fc" id="L22">               input = scannerErr.scanner.nextBigDecimal();</span>
+<span class="fc" id="L23">               scannerErr.scanner.nextLine();</span>
+<span class="fc" id="L24">               break;</span>
+            }
+<span class="nc" id="L26">            catch (NumberFormatException | InputMismatchException ex){</span>
+<span class="nc" id="L27">                System.out.println(&quot;Invalid number!: Please enter a valid number&quot;);</span>
+<span class="nc" id="L28">                scannerErr.scanner.nextLine();</span>
+<span class="nc" id="L29">            }</span>
+
+        }
+
+<span class="fc" id="L33">        return input;</span>
+    }
+
+    // Prompts the user for a non-blank string input
+    public String promptString(String message){
+        String input;
+
+        while(true){
+<span class="fc" id="L41">            System.out.print(message);</span>
+
+<span class="fc" id="L43">            input = scannerErr.scanner.nextLine();</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            if(input.isBlank()){</span>
+<span class="nc" id="L45">                System.out.println(&quot;Input is blank!!&quot;);</span>
+            }
+            else {
+                break;
+            }
+
+        }
+<span class="fc" id="L52">        return input;</span>
+    }
+
+    // Prompts the user for a 10-digit account number as a String
+    public String promptInt(String message){
+        String input;
+
+        while(true) {
+<span class="fc" id="L60">            System.out.print(message);</span>
+
+<span class="fc" id="L62">            input = scannerErr.scanner.nextLine();</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">            if (input.isBlank()) {</span>
+<span class="nc" id="L64">                System.out.println(&quot;Input is blank!!&quot;);</span>
+<span class="nc" id="L65">                continue;</span>
+            }
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">            if (input.length() &lt; 10) {</span>
+<span class="nc" id="L68">                System.out.println(&quot;account number is too short. Must be 10 numbers long&quot;);</span>
+<span class="nc" id="L69">                continue;</span>
+            }
+
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">            if (input.length() &gt; 10) {</span>
+<span class="nc" id="L73">                System.out.println(&quot;account number is too long. Must be 10 numbers long&quot;);</span>
+<span class="nc" id="L74">                continue;</span>
+            }
+
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">            if(!isValidInt(input)){</span>
+<span class="nc" id="L78">                System.out.println(&quot;Alert!: Account number &quot; + input+ &quot; is not valid numbers&quot;);</span>
+<span class="nc" id="L79">                continue;</span>
+            }
+
+            break;
+
+        }
+<span class="fc" id="L85">        return input;</span>
+    }
+
+    // Prompts the user for a 10-digit account number as a String
+    public String promptIntRec(String message){
+        String input;
+
+        while(true) {
+<span class="fc" id="L93">            System.out.print(message);</span>
+
+<span class="fc" id="L95">            input = scannerErr.scanner.nextLine();</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            if (input.isBlank()) {</span>
+<span class="nc" id="L97">                System.out.println(&quot;Input is blank!!&quot;);</span>
+<span class="nc" id="L98">                continue;</span>
+            }
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">            if (input.length() &lt; 10) {</span>
+<span class="nc" id="L101">                System.out.println(&quot;account number is too short. Must be 10 numbers long&quot;);</span>
+<span class="nc" id="L102">                continue;</span>
+            }
+
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">            if (input.length() &gt; 10) {</span>
+<span class="nc" id="L106">                System.out.println(&quot;account number is too long. Must be 10 numbers long&quot;);</span>
+<span class="nc" id="L107">                continue;</span>
+            }
+
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">            if(!isValidInt(input)){</span>
+<span class="nc" id="L111">                System.out.println(&quot;Alert!: Account number &quot; + input+ &quot; is not valid numbers&quot;);</span>
+<span class="nc" id="L112">                continue;</span>
+            }
+
+            break;
+
+        }
+<span class="fc" id="L118">        return input;</span>
+    }
+
+    // Checks if the input string is a valid integer
+    public boolean isValidInt(String number){
+<span class="fc" id="L123">        return number.matches(&quot;-?\\d+&quot;);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Start.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FullyFeaturedBankingApp</a> &gt; <a href="index.source.html" class="el_package">com.nate.ui</a> &gt; <span class="el_source">Start.java</span></div><h1>Start.java</h1><pre class="source lang-java linenums">package com.nate.ui;
+
+import com.nate.database.UserRepo;
+import com.nate.exception.*;
+import com.nate.model.IAccount;
+import com.nate.model.ITransactions;
+import com.nate.service.*;
+import com.nate.util.*;
+
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import static com.nate.ui.Processing.processing;
+import static com.nate.ui.SystemMessage.*;
+import static com.nate.ui.SystemMessage.showHeader;
+
+/**
+ * Entry point for the banking application UI.
+ * Handles both pre-login and post-login menus and logic.
+ */
+public class Start {
+<span class="fc" id="L24">    private static boolean running = true;</span>
+
+    private final IAccountService accountService;
+    private final UserRepo userRepo;
+    private final IUserService userService;
+    private final IBankingService bankingService;
+    private final ISessionService service;
+    private final MenuRenderer menuRenderer;
+    private final ExceptionHandler exceptionHandler;
+    private final InputHandler inputHandler;
+    private final NoAccountPresent noAccount;
+    private final PromptMessage message;
+
+<span class="fc" id="L37">    public Start(IUserService userService, ISessionService service, IAccountService accountService, UserRepo userRepo, IBankingService bankingService, MenuRenderer menuRenderer, InputHandler inputHandler, ExceptionHandler exceptionHandler, NoAccountPresent noAccountPresent, PromptMessage message){</span>
+<span class="fc" id="L38">        this.service = service;</span>
+<span class="fc" id="L39">        this.accountService = accountService;</span>
+<span class="fc" id="L40">        this.userRepo = userRepo;</span>
+<span class="fc" id="L41">        this.menuRenderer = menuRenderer;</span>
+<span class="fc" id="L42">        this.userService =userService;</span>
+<span class="fc" id="L43">        this.bankingService = bankingService;</span>
+<span class="fc" id="L44">        this.exceptionHandler = exceptionHandler;</span>
+<span class="fc" id="L45">        this.inputHandler = inputHandler;</span>
+<span class="fc" id="L46">        this.noAccount = noAccountPresent;</span>
+<span class="fc" id="L47">        this.message = message;</span>
+<span class="fc" id="L48">    }</span>
+
+    // Starts the main application loop
+    public void start() throws InterruptedException, SQLException {
+        int input;
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        while(running) {</span>
+
+            // Show startup menu if no user is logged in
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            if (!service.isLoggedIn()) {</span>
+<span class="nc" id="L57">                menuRenderer.showStartUpMenu();</span>
+<span class="nc" id="L58">                input = inputHandler.promptMenuSelection();  // Get user input for start menu</span>
+<span class="nc" id="L59">                handleStartUpMenu(input);</span>
+            } else {
+
+                // Show banking menu if a user is logged in
+<span class="nc" id="L63">                service.setCurrentUser(userRepo.reloadUser(service.getCurrentUser().getUsername()));</span>
+<span class="nc" id="L64">                menuRenderer.showBankingMenu();</span>
+<span class="nc" id="L65">                input = inputHandler.promptMenuSelection();  // Get user input for banking menu</span>
+<span class="nc" id="L66">                handleBankingMenu(input);</span>
+            }
+        }
+
+<span class="nc" id="L70">    }</span>
+
+
+    // Handles user choices from the startup menu
+    public void handleStartUpMenu(int input) throws InterruptedException {
+
+
+<span class="pc bpc" id="L77" title="2 of 4 branches missed.">        switch (input){</span>
+<span class="fc" id="L78">            case 1-&gt; registerU();</span>
+<span class="fc" id="L79">            case 2-&gt; logInUser();</span>
+            case 3-&gt; {
+<span class="nc" id="L81">                showGoodBye();</span>
+<span class="nc" id="L82">                running = false;</span>
+            }
+        }
+<span class="fc" id="L85">    }</span>
+
+    // Handles user registration
+    public void registerU(){
+
+
+<span class="fc" id="L91">        SystemMessage.showHeader(&quot;Registering User&quot;);</span>
+
+<span class="fc" id="L93">        final String name = inputHandler.promptName();</span>
+<span class="fc" id="L94">        final String username = inputHandler.promptUserName();</span>
+<span class="fc" id="L95">        final String password = inputHandler.promptPassword();</span>
+
+        try {
+<span class="fc" id="L98">            userService.registerUser(username, password, name);</span>
+        }
+<span class="fc" id="L100">        catch (NullPointerException | IllegalArgumentException | SQLException ex){</span>
+<span class="fc" id="L101">            exceptionHandler.handleException(ex);</span>
+<span class="fc" id="L102">        }</span>
+<span class="fc" id="L103">    }</span>
+
+    // Handles user login
+    public void logInUser(){
+<span class="fc" id="L107">        SystemMessage.showHeader(&quot;Log In&quot;);</span>
+        try {
+<span class="fc" id="L109">            String username = inputHandler.promptUserName();</span>
+
+<span class="fc" id="L111">            String password = inputHandler.promptPassword();</span>
+
+<span class="fc" id="L113">            userService.loginUser(username, password);</span>
+        }
+<span class="fc" id="L115">        catch(NullPointerException | IllegalArgumentException | SQLException ex){</span>
+<span class="fc" id="L116">            exceptionHandler.handleException(ex);</span>
+<span class="fc" id="L117">        }</span>
+<span class="fc" id="L118">    }</span>
+
+    // Handles user choices from the banking menu
+    public void handleBankingMenu(int input) throws InterruptedException, SQLException {
+
+<span class="pc bpc" id="L123" title="2 of 11 branches missed.">        switch (input){</span>
+<span class="fc" id="L124">            case 1 -&gt; openAccount();</span>
+<span class="fc" id="L125">            case 2 -&gt; viewAccountBalance();</span>
+<span class="fc" id="L126">            case 3 -&gt; depositFunds();</span>
+<span class="fc" id="L127">            case 4 -&gt; withdrawFunds();</span>
+<span class="fc" id="L128">            case 5 -&gt; transferFundsToDifferentAccount();</span>
+<span class="fc" id="L129">            case 6 -&gt; transactionHistory();</span>
+<span class="fc" id="L130">            case 7 -&gt; accountDetails();</span>
+<span class="fc" id="L131">            case 8 -&gt; viewAllAccounts();</span>
+<span class="fc" id="L132">            case 9 -&gt; deleteAccount();</span>
+            case 10 -&gt; {
+<span class="nc" id="L134">                showLogOut();</span>
+                //PersistenceService.saveAll();
+<span class="nc" id="L136">                service.logOut();</span>
+<span class="nc" id="L137">            }</span>
+<span class="nc" id="L138">            default -&gt; System.out.println(&quot;Invalid selection. Please choose a number from the menu.&quot;);</span>
+
+        }
+<span class="fc" id="L141">    }</span>
+
+    // Creates a new account for the logged-in user
+    public void openAccount(){
+<span class="fc" id="L145">        SystemMessage.showHeader(&quot;Creating Account&quot;);</span>
+
+
+        try {
+<span class="fc" id="L149">            String type = inputHandler.emptyInputOrSpellingError();</span>
+<span class="fc" id="L150">            accountService.createAccount(BigDecimal.ZERO, type, service.getCurrentUser());</span>
+        }
+<span class="fc" id="L152">        catch (IllegalArgumentException | UserNotLoggedInException | NullPointerException e){</span>
+<span class="fc" id="L153">            exceptionHandler.handleException(e);</span>
+<span class="fc" id="L154">        }</span>
+<span class="fc" id="L155">    }</span>
+
+    // Displays account balance
+    public void viewAccountBalance() {
+
+
+           try {
+
+<span class="fc bfc" id="L163" title="All 2 branches covered.">               if (!noAccount.noAccount()) {</span>
+<span class="fc" id="L164">                   throw new NoAccountException();</span>
+               }
+
+<span class="fc" id="L167">               String accountNumber = message.promptInt(&quot;Enter account number of the account: &quot;);</span>
+
+<span class="fc" id="L169">               bankingService.viewBalance(accountNumber);</span>
+<span class="fc" id="L170">           } catch (UnauthorizedAccessException | AccountNotFoundException | UserNotLoggedInException |</span>
+                    NoAccountException | SQLException e) {
+<span class="fc" id="L172">               exceptionHandler.handleException(e);</span>
+<span class="fc" id="L173">           }</span>
+
+
+<span class="fc" id="L176">    }</span>
+
+    // Deposits money into an account
+    public void depositFunds() throws InterruptedException {
+
+
+        try {
+<span class="fc bfc" id="L183" title="All 2 branches covered.">            if (!noAccount.noAccount()) {</span>
+<span class="fc" id="L184">                throw new NoAccountException();</span>
+            }
+
+<span class="fc" id="L187">            String accountNumber = message.promptInt(&quot;Enter account number of the account: &quot;);</span>
+
+
+<span class="fc" id="L190">            BigDecimal amount = message.promptBigDec(&quot;Enter the amount you want to deposit: R&quot;);</span>
+<span class="fc" id="L191">            processing();</span>
+<span class="fc" id="L192">            System.out.println();</span>
+
+<span class="fc" id="L194">            accountService.deposit(accountNumber, amount);</span>
+        }
+
+<span class="fc" id="L197">        catch (UnauthorizedAccessException | AccountNotFoundException | InvalidTransactionAmount |</span>
+               UserNotLoggedInException | NoAccountException | SQLException | NullPointerException ex){
+<span class="fc" id="L199">            exceptionHandler.handleException(ex);</span>
+<span class="fc" id="L200">        }</span>
+
+
+<span class="fc" id="L203">    }</span>
+
+    // Withdraws money from an account
+    public void withdrawFunds() throws InterruptedException {
+
+        try {
+<span class="fc bfc" id="L209" title="All 2 branches covered.">            if (!noAccount.noAccount()) {</span>
+<span class="fc" id="L210">                throw new NoAccountException();</span>
+            }
+
+<span class="fc" id="L213">            String accountNumber = message.promptInt(&quot;Enter account number of the account: &quot;);</span>
+
+<span class="fc" id="L215">            BigDecimal amount = message.promptBigDec(&quot;Enter the amount you want to withdraw: R&quot;);</span>
+
+<span class="fc" id="L217">            processing();</span>
+<span class="fc" id="L218">            System.out.println();</span>
+
+<span class="fc" id="L220">            accountService.withdraw(accountNumber, amount);</span>
+        }
+<span class="fc" id="L222">        catch (AccountNotFoundException | UnauthorizedAccessException | InvalidTransactionAmount |</span>
+               UserNotLoggedInException | NoAccountException | SQLException | InsufficientFunds | NullPointerException ex){
+<span class="fc" id="L224">                exceptionHandler.handleException(ex);</span>
+<span class="fc" id="L225">        }</span>
+
+<span class="fc" id="L227">    }</span>
+
+    // Displays transaction history
+    public void transactionHistory() throws InterruptedException {
+
+        try {
+<span class="fc bfc" id="L233" title="All 2 branches covered.">            if (!noAccount.noAccount()) {</span>
+<span class="fc" id="L234">                throw new NoAccountException();</span>
+            }
+
+<span class="fc" id="L237">            String accountNumber =  message.promptInt(&quot;Enter account number of the account: &quot;);</span>
+
+<span class="fc" id="L239">            processing();</span>
+<span class="fc" id="L240">            System.out.println();</span>
+
+<span class="fc" id="L242">            System.out.println(&quot;&quot;&quot;</span>
+                           Transactions:
+                      Account Number: %s
+                      --------------------------------
+<span class="fc" id="L246">                    &quot;&quot;&quot;.formatted(accountNumber));</span>
+
+<span class="pc bpc" id="L248" title="1 of 2 branches missed.">            for(ITransactions t : accountService.getTransactions(accountNumber)){</span>
+<span class="nc" id="L249">                System.out.printf(&quot;Account: %-10s | %-10s | Amount: %-10s  |  Date: %s \n&quot;,t.getAccountNumber(), t.getDescription(), CurrencyFormatter.getCurrency(t.getAmount()), DateTimeFormat.dateFormatter(t.getTimeStamp()));</span>
+<span class="nc" id="L250">            }</span>
+
+
+        }
+<span class="fc" id="L254">        catch (AccountNotFoundException | UnauthorizedAccessException | UserNotLoggedInException | NoAccountException |</span>
+               SQLException ex){
+<span class="fc" id="L256">            exceptionHandler.handleException(ex);</span>
+<span class="fc" id="L257">        }</span>
+<span class="fc" id="L258">    }</span>
+
+    // Displays account details
+    public void accountDetails() throws InterruptedException {
+
+        try {
+
+<span class="fc bfc" id="L265" title="All 2 branches covered.">            if (!noAccount.noAccount()) {</span>
+<span class="fc" id="L266">                throw new NoAccountException();</span>
+            }
+
+<span class="fc" id="L269">            String accountNumber =  message.promptInt(&quot;Enter account number of the account: &quot;);</span>
+
+<span class="fc" id="L271">            processing();</span>
+<span class="fc" id="L272">            System.out.println();</span>
+
+<span class="fc" id="L274">            System.out.println(accountService.getAccountDetails(accountNumber));</span>
+        }
+<span class="fc" id="L276">        catch (UnauthorizedAccessException | AccountNotFoundException | UserNotLoggedInException | NoAccountException |</span>
+               SQLException ex){
+<span class="fc" id="L278">            exceptionHandler.handleException(ex);</span>
+<span class="fc" id="L279">        }</span>
+<span class="fc" id="L280">    }</span>
+
+    // Deletes an account
+    public void deleteAccount() throws InterruptedException {
+
+
+        try {
+<span class="fc bfc" id="L287" title="All 2 branches covered.">            if (!noAccount.noAccount()) {</span>
+<span class="fc" id="L288">                throw new NoAccountException();</span>
+            }
+
+<span class="fc" id="L291">            showHeader(&quot;\nDeleting Account&quot;);</span>
+
+<span class="fc" id="L293">            String accountNumber =  message.promptInt(&quot;Enter account number of the account you want to delete: &quot;);</span>
+
+<span class="fc" id="L295">            processing();</span>
+<span class="fc" id="L296">            System.out.println();</span>
+
+<span class="fc" id="L298">            accountService.deleteAccount(accountNumber);</span>
+        }
+<span class="fc" id="L300">        catch (UnauthorizedAccessException | AccountNotFoundException | DeletingWithFundsException |</span>
+               UserNotLoggedInException | NoAccountException | SQLException ex){
+<span class="fc" id="L302">                exceptionHandler.handleException(ex);</span>
+<span class="fc" id="L303">        }</span>
+<span class="fc" id="L304">    }</span>
+
+    // Transfers funds between two accounts
+    public void transferFundsToDifferentAccount() throws InterruptedException {
+        try {
+<span class="fc bfc" id="L309" title="All 2 branches covered.">            if (!noAccount.noAccount()) {</span>
+<span class="fc" id="L310">                throw new NoAccountException();</span>
+            }
+
+<span class="fc" id="L313">            showHeader(&quot;\nTransferring Funds&quot;);</span>
+
+<span class="fc" id="L315">            String accountNumberFrom = message.promptInt(&quot;Enter account number of the account you transferring from: &quot;);</span>
+
+<span class="fc" id="L317">            String accountNumberTo = message.promptIntRec(&quot;Enter account number of the account you want to transfer to: &quot;);</span>
+
+<span class="fc" id="L319">            BigDecimal amount = message.promptBigDec(&quot;Enter amount you want to transfer: R&quot;);</span>
+
+<span class="fc" id="L321">            processing();</span>
+<span class="fc" id="L322">            System.out.println();</span>
+
+
+<span class="fc" id="L325">            accountService.transfer(accountNumberFrom, accountNumberTo, amount);</span>
+        }
+<span class="fc" id="L327">        catch (UnauthorizedAccessException | AccountNotFoundException | InvalidTransactionAmount |</span>
+               InvalidTransferAmountFrom | UserNotLoggedInException | NoAccountException | SQLException | NullPointerException | TransferToSameAccountException | InsufficientFunds e){
+<span class="fc" id="L329">            exceptionHandler.handleException(e);</span>
+<span class="fc" id="L330">        }</span>
+
+<span class="fc" id="L332">    }</span>
+
+    public void viewAllAccounts() throws SQLException {
+       try {
+<span class="fc bfc" id="L336" title="All 2 branches covered.">           if (!noAccount.noAccount()) {</span>
+<span class="fc" id="L337">                throw new NoAccountException();</span>
+           }
+<span class="fc" id="L339">           List&lt;IAccount&gt; accounts = accountService.getAllUserAccounts();</span>
+<span class="pc bpc" id="L340" title="1 of 2 branches missed.">           for (IAccount account : accounts) {</span>
+<span class="nc" id="L341">               System.out.printf(&quot;Account Owner: %-10s | Account Number: %-10s | Account type: %s | Balance: R%s\n&quot;,</span>
+<span class="nc" id="L342">                                        account.getOwnerUsername(),account.getAccountNumber(),account.getType(),account.getBalance());</span>
+<span class="nc" id="L343">           }</span>
+       }
+<span class="fc" id="L345">       catch (NoAccountException | SQLException e){</span>
+<span class="fc" id="L346">           exceptionHandler.handleException(e);</span>
+<span class="fc" id="L347">       }</span>
+
+<span class="fc" id="L349">    }</span>
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

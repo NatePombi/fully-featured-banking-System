@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InputHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FullyFeaturedBankingApp</a> &gt; <a href="index.source.html" class="el_package">com.nate.ui</a> &gt; <span class="el_source">InputHandler.java</span></div><h1>InputHandler.java</h1><pre class="source lang-java linenums">package com.nate.ui;
+
+import com.nate.util.PromptMessage;
+import com.nate.util.ScannerError;
+
+import java.math.BigDecimal;
+import java.util.Scanner;
+
+public class InputHandler {
+    private final Scanner scanner;
+    private final ScannerError scannerError;
+
+<span class="fc" id="L13">    public InputHandler(Scanner scanner,ScannerError scannerError){</span>
+<span class="fc" id="L14">        this.scanner = scanner;</span>
+<span class="fc" id="L15">        this.scannerError = scannerError;</span>
+
+<span class="fc" id="L17">    }</span>
+
+    // Prompts the user to select a menu option and ensures it is an integer
+    public int promptMenuSelection(){
+        int input;
+        while(true){
+<span class="fc" id="L23">            System.out.println(&quot;Enter a number from the above menu.&quot;);</span>
+            try{
+<span class="fc" id="L25">                input = Integer.parseInt(scannerError.scanner.nextLine());</span>
+<span class="fc" id="L26">                break;</span>
+            }
+<span class="nc" id="L28">            catch (NumberFormatException ex) {</span>
+<span class="nc" id="L29">                System.out.println(&quot;Invalid selection. Please choose a number from the menu.&quot;);</span>
+<span class="nc" id="L30">            }</span>
+        }
+<span class="fc" id="L32">        return input;</span>
+    }
+
+
+    public String promptName(){
+<span class="fc" id="L37">        System.out.print(&quot;Enter name: &quot;);</span>
+<span class="fc" id="L38">        return scannerError.inputCheck(scanner.nextLine(),&quot;Enter name: &quot;);</span>
+    }
+
+    public String promptUserName(){
+<span class="fc" id="L42">        System.out.print(&quot;Enter username: &quot;);</span>
+<span class="fc" id="L43">        return scannerError.inputCheck(scanner.nextLine(),&quot;Enter username: &quot;);</span>
+    }
+
+    public String promptPassword(){
+<span class="fc" id="L47">        System.out.print(&quot;Enter password: &quot;);</span>
+<span class="fc" id="L48">        return scannerError.inputCheck(scanner.nextLine(),&quot;Enter password: &quot;);</span>
+    }
+
+    // Used when asking for account type input (e.g., checking, savings, business)
+    public String emptyInputOrSpellingError(){
+<span class="nc" id="L53">        System.out.print(&quot;Enter the account type shown [checking,savings,business]: &quot;);</span>
+<span class="nc" id="L54">        return scannerError.scanner.nextLine();</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DBFunction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FullyFeaturedBankingApp</a> &gt; <a href="index.source.html" class="el_package">com.nate.database</a> &gt; <span class="el_source">DBFunction.java</span></div><h1>DBFunction.java</h1><pre class="source lang-java linenums">package com.nate.database;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
+/*
+
+ */
+<span class="nc" id="L17">public class DBFunction {</span>
+
+    private static final String PROPERTIES_FILE = &quot;/com/database/db.properties&quot; ;
+<span class="fc" id="L20">    private static final Logger log = LoggerFactory.getLogger(DBFunction.class);</span>
+    private static final HikariDataSource dataSource;
+
+    static {
+
+
+<span class="fc" id="L26">        try(InputStream inputStream = DBFunction.class.getResourceAsStream(PROPERTIES_FILE)){</span>
+<span class="fc" id="L27">            Properties prop = new Properties();</span>
+
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">            if(inputStream == null){</span>
+<span class="nc" id="L30">                log.warn(&quot;Cannot find properties {}&quot;,PROPERTIES_FILE);</span>
+<span class="nc" id="L31">                throw new IllegalStateException(&quot;Cannot find properties &quot; + PROPERTIES_FILE);</span>
+            }
+
+<span class="fc" id="L34">            prop.load(inputStream);</span>
+<span class="fc" id="L35">            HikariConfig config = new HikariConfig();</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">            if(Configuration.config){</span>
+<span class="fc" id="L37">                config.setJdbcUrl(prop.getProperty(&quot;dbt.url&quot;));</span>
+            }else {
+<span class="nc" id="L39">                config.setJdbcUrl(prop.getProperty(&quot;db.url&quot;));</span>
+            }
+<span class="fc" id="L41">            config.setUsername(prop.getProperty(&quot;db.name&quot;));</span>
+<span class="fc" id="L42">            config.setPassword(prop.getProperty(&quot;db.password&quot;));</span>
+
+<span class="fc" id="L44">            config.setMaximumPoolSize(Integer.parseInt(prop.getProperty(&quot;hikari.maximumPoolSize&quot;,&quot;10&quot;)));</span>
+<span class="fc" id="L45">            config.setMinimumIdle(Integer.parseInt(prop.getProperty(&quot;hikari.minimumIdle&quot;,&quot;2&quot;)));</span>
+<span class="fc" id="L46">            config.setIdleTimeout(Long.parseLong(prop.getProperty(&quot;hikari.idleTimeout&quot;,&quot;60000&quot;)));</span>
+<span class="fc" id="L47">            config.setConnectionTimeout(Long.parseLong(prop.getProperty(&quot;hikari.connectionTimeout&quot;,&quot;30000&quot;)));</span>
+
+<span class="fc" id="L49">            dataSource = new HikariDataSource(config);</span>
+        }
+<span class="nc" id="L51">        catch (IOException e){</span>
+<span class="nc" id="L52">            log.error(&quot;SQL Error&quot;,e);</span>
+<span class="nc" id="L53">            throw new RuntimeException(e);</span>
+<span class="fc" id="L54">        }</span>
+<span class="fc" id="L55">    }</span>
+    public static Connection getConnection() throws SQLException {
+<span class="fc" id="L57">        return dataSource.getConnection();</span>
+    }
+
+    public static void databaseInit() throws SQLException {
+<span class="fc" id="L61">        String createUserTable = &quot;&quot;&quot;</span>
+                CREATE TABLE IF NOT EXISTS users (
+                                        username VARCHAR(50) PRIMARY KEY,
+                                        password VARCHAR(255) NOT NULL,
+                                        salt VARCHAR(255) NOT NULL,
+                                        name VARCHAR(100) NOT NULL
+                                        );
+                &quot;&quot;&quot;;
+
+
+<span class="fc" id="L71">        String createAccountTable = &quot;&quot;&quot;</span>
+                CREATE TABLE IF NOT EXISTS accounts(
+                id VARCHAR(10) PRIMARY KEY,
+                type VARCHAR(50) NOT NULL,
+                balance DECIMAL(10,2),
+                owner_name VARCHAR(100) NOT NULL,
+                FOREIGN KEY (owner_name) REFERENCES users(username) ON DELETE CASCADE
+                );
+                &quot;&quot;&quot;;
+
+
+<span class="fc" id="L82">        String createTransactionTable = &quot;&quot;&quot;</span>
+                CREATE TABLE IF NOT EXISTS transactions(
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                account_number VARCHAR(10) ,
+                to_account VARCHAR(10),
+                description VARCHAR(50),
+                amount DECIMAL(10,2),
+                type VARCHAR(100),
+                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (account_number) REFERENCES accounts(id) ON DELETE CASCADE
+                );
+                &quot;&quot;&quot;;
+
+
+
+<span class="fc" id="L97">        try(Connection con = DBFunction.getConnection();</span>
+<span class="fc" id="L98">            Statement stm = con.createStatement()</span>
+        ){
+<span class="fc" id="L100">            stm.execute(createUserTable);</span>
+<span class="fc" id="L101">            stm.execute(createAccountTable);</span>
+<span class="fc" id="L102">            stm.execute(createTransactionTable);</span>
+
+        }
+<span class="nc" id="L105">        catch (SQLException e){</span>
+<span class="nc" id="L106">            log.error(&quot;SQL Error&quot;, e);</span>
+<span class="nc" id="L107">            throw e;</span>
+
+<span class="fc" id="L109">        }</span>
+
+
+
+<span class="fc" id="L113">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

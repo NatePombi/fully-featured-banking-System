@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: Test.ui.StartTest$TransactionHistoryUI
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.517 s -- in Test.ui.StartTest$TransactionHistoryUI

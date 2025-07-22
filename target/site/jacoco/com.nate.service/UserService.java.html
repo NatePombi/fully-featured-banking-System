@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FullyFeaturedBankingApp</a> &gt; <a href="index.source.html" class="el_package">com.nate.service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.nate.service;
+
+import com.nate.database.IUserDao;
+import com.nate.model.IUser;
+import com.nate.model.User;
+import com.nate.database.Configuration;
+import com.nate.util.PasswordUtil;
+
+import java.sql.SQLException;
+import java.util.NoSuchElementException;
+
+public class UserService implements IUserService{
+
+
+    private final IUserDao userDao;
+    private final ISessionService service;
+<span class="fc" id="L17">    private final PasswordUtil passwordUtil = new PasswordUtil();</span>
+
+
+<span class="fc" id="L20">    public UserService(ISessionService service, IUserDao userDao){</span>
+<span class="fc" id="L21">        this.service = service;</span>
+<span class="fc" id="L22">        this.userDao = userDao;</span>
+<span class="fc" id="L23">    }</span>
+    // Registers a new user
+    @Override
+    public boolean registerUser(String username, String password, String name) throws SQLException {
+
+        // Validate input fields
+<span class="fc bfc" id="L29" title="All 4 branches covered.">        if (username == null || username.isBlank()) {</span>
+<span class="fc" id="L30">            throw new NullPointerException(&quot;Username is empty&quot;);</span>
+        }
+<span class="fc bfc" id="L32" title="All 4 branches covered.">        if (password == null || password.isBlank()) {</span>
+<span class="fc" id="L33">            throw new NullPointerException(&quot;Password field is empty&quot;);</span>
+        }
+<span class="fc bfc" id="L35" title="All 4 branches covered.">        if (name == null || name.isBlank()) {</span>
+<span class="fc" id="L36">            throw new NullPointerException(&quot;Name field is empty&quot;);</span>
+        }
+
+        // Check if username is already taken
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (userDao.findUserByUsername(username.trim()) != null) {</span>
+<span class="fc" id="L41">            throw new IllegalArgumentException(&quot;User already exists!&quot;);</span>
+        }
+
+        // Create and store the new user
+<span class="fc" id="L45">        String salt = passwordUtil.generateSalt();</span>
+<span class="fc" id="L46">        String hashPass = passwordUtil.hash(password,salt);</span>
+<span class="fc" id="L47">        IUser user = new User(username.trim(), hashPass, name.trim(),salt);</span>
+<span class="fc" id="L48">        userDao.addUser(user);</span>
+
+<span class="fc" id="L50">        System.out.println(&quot;User successfully registered!&quot;);</span>
+<span class="fc" id="L51">        return true;</span>
+    }
+
+    // Authenticates and logs in a user
+    @Override
+    public boolean loginUser(String username, String password) throws SQLException {
+<span class="fc bfc" id="L57" title="All 4 branches covered.">        if (username == null || username.isBlank()) {</span>
+<span class="fc" id="L58">            throw new NullPointerException(&quot;Username field is empty!&quot;);</span>
+        }
+<span class="fc bfc" id="L60" title="All 4 branches covered.">        if (password == null || password.isBlank()) {</span>
+<span class="fc" id="L61">            throw new NullPointerException(&quot;Password field is empty!&quot;);</span>
+        }
+
+        // Look up user by username
+<span class="fc" id="L65">        IUser user = userDao.findUserByUsername(username.trim());</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (user == null) {</span>
+<span class="fc" id="L67">            throw new IllegalArgumentException(&quot;User not found.&quot;);</span>
+        }
+
+        // Use secure hash comparison to verify password without revealing specific failure reason
+        // This helps prevent brute force attacks by not disclosing whether the username or password is incorrect
+<span class="fc" id="L72">        boolean isValid = passwordUtil.verifyPassword(password, user.getPassword(), user.getSalt());</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (!isValid) {</span>
+<span class="fc" id="L74">            throw new IllegalArgumentException(&quot;Incorrect username or password.&quot;);</span>
+        }
+
+        // Set the user as logged in
+<span class="fc" id="L78">        service.setCurrentUser(user);</span>
+<span class="fc" id="L79">        System.out.println(&quot;User logged in successfully!&quot;);</span>
+<span class="fc" id="L80">        return true;</span>
+    }
+
+    // Retrieves a user by username
+    @Override
+    public IUser getUserByUsername(String username) throws SQLException {
+<span class="fc" id="L86">        IUser user = userDao.findUserByUsername(username.trim());</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (user == null) {</span>
+<span class="fc" id="L88">            throw new NoSuchElementException(&quot;User not found.&quot;);</span>
+        }
+<span class="fc" id="L90">        return user;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
