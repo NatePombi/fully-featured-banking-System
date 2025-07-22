@@ -1,4 +1,5 @@
 # Fully Featured Banking System
+[![codecov](https://codecov.io/github/NatePombi/fully-featured-banking-System/graph/badge.svg?token=ZPXXXOGLQ4)](https://codecov.io/github/NatePombi/fully-featured-banking-System)
 
 A robust and scalable console-based banking system built with Java 17. It features secure authentication, modular service design, real database persistence (MySQL), and automated CI + test coverage reporting. Designed from the ground up to follow clean code, SOLID principles, and real-world enterprise patterns.
 
