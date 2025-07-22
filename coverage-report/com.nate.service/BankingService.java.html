@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankingService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FullyFeaturedBankingApp</a> &gt; <a href="index.source.html" class="el_package">com.nate.service</a> &gt; <span class="el_source">BankingService.java</span></div><h1>BankingService.java</h1><pre class="source lang-java linenums">package com.nate.service;
+
+import com.nate.database.AccountDao;
+import com.nate.database.IAccountDao;
+import com.nate.database.ITransactionDao;
+import com.nate.database.UserRepo;
+import com.nate.exception.InvalidTransactionAmount;
+import com.nate.exception.UnauthorizedAccessException;
+import com.nate.exception.UserNotLoggedInException;
+import com.nate.model.IAccount;
+import com.nate.util.CurrencyFormatter;
+import com.nate.util.FindAccount;
+import com.nate.util.OwnershipValidation;
+
+import java.math.BigDecimal;
+import java.sql.SQLException;
+
+
+public class BankingService implements IBankingService{
+
+    private final ISessionService service;
+    private final ITransactionDao transactionDao;
+    private final IAccountDao accountDao;
+    private final UserRepo userRepo;
+    private final FindAccount findAccount;
+    private final OwnershipValidation ownershipValidation;
+
+<span class="fc" id="L28">    public BankingService(ISessionService service, ITransactionDao transactions, IAccountDao accountDao, UserRepo userRepo,FindAccount findAccount,OwnershipValidation ownershipValidation){</span>
+<span class="fc" id="L29">        this.service =service;</span>
+<span class="fc" id="L30">        this.transactionDao = transactions;</span>
+<span class="fc" id="L31">        this.accountDao = accountDao;</span>
+<span class="fc" id="L32">        this.userRepo = userRepo;</span>
+<span class="fc" id="L33">        this.ownershipValidation = ownershipValidation;</span>
+<span class="fc" id="L34">        this.findAccount = findAccount;</span>
+<span class="fc" id="L35">    }</span>
+
+    // Opens a new account with the specified amount and type for the logged-in user
+    @Override
+    public void openAccount(BigDecimal amount, String type){
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if(!service.isLoggedIn()){</span>
+<span class="fc" id="L41">            throw new UserNotLoggedInException();</span>
+        }
+
+<span class="fc" id="L44">        IAccountService accountService = new AccountService(service,accountDao,transactionDao,userRepo, findAccount,ownershipValidation);</span>
+
+<span class="fc" id="L46">        type = type.trim();</span>
+<span class="fc bfc" id="L47" title="All 4 branches covered.">       if(amount.compareTo(BigDecimal.ZERO)&gt;=0 &amp;&amp; !type.isEmpty()) {</span>
+<span class="fc" id="L48">          IAccount acc = accountService.createAccount(amount, type,service.getCurrentUser());</span>
+<span class="fc" id="L49">           System.out.println(&quot;Account created successfully!&quot;);</span>
+
+<span class="fc" id="L51">           System.out.println(acc);</span>
+<span class="fc" id="L52">       }</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">       else if(amount.compareTo(BigDecimal.ZERO) &lt; 0){</span>
+<span class="fc" id="L54">            throw new InvalidTransactionAmount(amount);</span>
+       }
+
+       else{
+<span class="fc" id="L58">           throw new IllegalArgumentException(&quot;Account type was not specified&quot;);</span>
+       }
+<span class="fc" id="L60">    }</span>
+
+
+    // Displays the current balance of a given account
+    @Override
+    public boolean viewBalance(String accountNumber) throws SQLException {
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if(!service.isLoggedIn()){</span>
+<span class="fc" id="L67">            throw new UserNotLoggedInException();</span>
+        }
+
+<span class="fc" id="L70">        IAccount account = findAccount.findUserAccount(accountNumber);</span>
+
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if(!ownershipValidation.isOwner(accountNumber)){</span>
+<span class="fc" id="L73">            throw new UnauthorizedAccessException(accountNumber);</span>
+        }
+
+
+
+<span class="fc" id="L78">       System.out.println(&quot;Current balance for account &quot; + account.getAccountNumber() + &quot;: &quot; + CurrencyFormatter.getCurrency(account.getBalance()));</span>
+<span class="fc" id="L79">        return true;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

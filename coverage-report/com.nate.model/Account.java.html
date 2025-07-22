@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Account.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FullyFeaturedBankingApp</a> &gt; <a href="index.source.html" class="el_package">com.nate.model</a> &gt; <span class="el_source">Account.java</span></div><h1>Account.java</h1><pre class="source lang-java linenums">package com.nate.model;
+
+import com.nate.util.AutoIdGenerator;
+import com.nate.util.CurrencyFormatter;
+
+import java.math.BigDecimal;
+import java.util.*;
+/**
+ *  a bank account with basic operations like deposit, withdrawal, and transaction tracking.
+ */
+public class Account implements IAccount{
+    private final String ownerUsername;
+    private final String accountNumber;
+    private final AccountType type;
+    private BigDecimal balance;
+    private final List&lt;ITransactions&gt; transactions;
+
+    /**
+     * Constructor for creating a new account.
+     * @param balance Starting balance (must be positive to be accepted).
+     * @param type String representing the account type (converted to AccountType enum).
+     * @param ownerUsername Username of the account owner.
+     */
+<span class="fc" id="L24">    public Account(BigDecimal balance, String type,String ownerUsername) {</span>
+<span class="fc" id="L25">        this.accountNumber = AutoIdGenerator.generateId(); //auto-generated unique ID</span>
+<span class="fc" id="L26">        this.type = Objects.requireNonNull(AccountType.getEnum(type),&quot;Invalid account type&quot;);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        this.balance = balance.compareTo(BigDecimal.ZERO)&gt;0?balance: BigDecimal.ZERO;</span>
+<span class="fc" id="L28">        transactions = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L29">        this.ownerUsername = ownerUsername;</span>
+<span class="fc" id="L30">    }</span>
+
+<span class="fc" id="L32">    public Account(BigDecimal balance, String type,String ownerUsername,String accNum) {</span>
+<span class="fc" id="L33">        this.accountNumber = accNum;</span>
+<span class="fc" id="L34">        this.type = Objects.requireNonNull(AccountType.getEnum(type),&quot;Invalid account type&quot;);</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        this.balance = balance.compareTo(BigDecimal.ZERO)&gt;0?balance: BigDecimal.ZERO;</span>
+<span class="fc" id="L36">        transactions = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L37">        this.ownerUsername = ownerUsername;</span>
+<span class="fc" id="L38">    }</span>
+// getters for every field
+
+    @Override
+    public String getOwnerUsername() {
+<span class="fc" id="L43">        return ownerUsername;</span>
+    }
+
+    @Override
+    public String getAccountNumber() {
+<span class="fc" id="L48">        return accountNumber;</span>
+    }
+
+    @Override
+    public AccountType getType() {
+<span class="fc" id="L53">        return type;</span>
+    }
+
+    @Override
+    public BigDecimal getBalance() {
+<span class="fc" id="L58">        return balance;</span>
+    }
+
+    @Override
+    public List&lt;ITransactions&gt; getTransactions() {
+<span class="fc" id="L63">        return Collections.unmodifiableList(transactions); //unmodifiable list of transactions (prevents external modification)</span>
+    }
+
+
+    /**
+     * Deposits money into the account.
+     * @param deposit The amount to deposit (must be positive).
+     */
+    @Override
+    public void deposit(BigDecimal deposit){
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if(deposit.compareTo(BigDecimal.ZERO)&gt;0){</span>
+<span class="fc" id="L74">            balance= balance.add(deposit);</span>
+<span class="fc" id="L75">            transactions.add(new Transaction(&quot;DEPOSIT&quot;, deposit, &quot;Deposit to account&quot;,accountNumber));</span>
+        }else{
+<span class="nc" id="L77">            throw new IllegalArgumentException(&quot;Amount must be above 0&quot;);</span>
+        }
+
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Withdraws money from the account.
+     * @param withdraw The amount to withdraw (must not exceed balance).
+     */
+    @Override
+    public void withdraw(BigDecimal withdraw){
+<span class="pc bpc" id="L88" title="2 of 4 branches missed.">        if(balance.compareTo(withdraw)&gt;= 0 &amp;&amp; withdraw.compareTo(BigDecimal.ZERO) &gt; 0){</span>
+<span class="fc" id="L89">            balance = balance.subtract(withdraw);</span>
+<span class="fc" id="L90">            transactions.add(new Transaction(&quot;WITHDRAW&quot;, withdraw, &quot;Withdrawal from account&quot;,accountNumber));</span>
+        }
+        else{
+<span class="nc" id="L93">            throw new IllegalArgumentException(&quot;Insufficient funds&quot;);</span>
+        }
+<span class="fc" id="L95">    }</span>
+
+    /**
+     * Returns a formatted string with account information.
+     * Uses SessionService to get current user.
+     */
+
+    @Override
+    public String toString() {
+<span class="fc" id="L104">        return String.format(&quot;&quot;&quot;</span>
+                Account Owner: %s
+                Account: %s
+                Type: %s
+                Balance: %s
+<span class="fc" id="L109">                &quot;&quot;&quot;, ownerUsername,accountNumber,type, CurrencyFormatter.getCurrency(balance));</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
