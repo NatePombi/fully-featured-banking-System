@@ -104,7 +104,7 @@ This project simulates a simple yet complete banking system supporting multiple 
 ## Testing
 
     Unit & Integration Tests:
-    copy this into the terminal: mvn clean test
+    copy this into the terminal: mvn clean verify
         Unit tests cover services, logic, and utilities
         Integration tests hit the real DB (with test tables)
 

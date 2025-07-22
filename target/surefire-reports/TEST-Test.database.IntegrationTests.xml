@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Test.database.IntegrationTests" time="0.162" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Test.database.IntegrationTests" time="0.163" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ZA"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722225818587_3.jar /Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire 2025-07-22T22-58-18_444-jvmRun1 surefire-20250722225818587_1tmp surefire_0-20250722225818587_2tmp"/>
+    <property name="sun.java.command" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722234839716_3.jar /Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire 2025-07-22T23-48-39_543-jvmRun1 surefire-20250722234839716_1tmp surefire_0-20250722234839716_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/test-classes:/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/classes:/Users/nathan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.2/junit-jupiter-api-5.11.2.jar:/Users/nathan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/nathan/.m2/repository/org/junit/platform/junit-platform-commons/1.11.2/junit-platform-commons-1.11.2.jar:/Users/nathan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/nathan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.2/junit-jupiter-engine-5.11.2.jar:/Users/nathan/.m2/repository/org/junit/platform/junit-platform-engine/1.11.2/junit-platform-engine-1.11.2.jar:/Users/nathan/.m2/repository/org/slf4j/slf4j-api/2.0.13/slf4j-api-2.0.13.jar:/Users/nathan/.m2/repository/ch/qos/logback/logback-classic/1.4.11/logback-classic-1.4.11.jar:/Users/nathan/.m2/repository/ch/qos/logback/logback-core/1.4.11/logback-core-1.4.11.jar:/Users/nathan/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/Users/nathan/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/Users/nathan/.m2/repository/org/mockito/mockito-core/5.5.0/mockito-core-5.5.0.jar:/Users/nathan/.m2/repository/net/bytebuddy/byte-buddy/1.14.6/byte-buddy-1.14.6.jar:/Users/nathan/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.6/byte-buddy-agent-1.14.6.jar:/Users/nathan/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/nathan/.m2/repository/org/mockito/mockito-junit-jupiter/5.5.0/mockito-junit-jupiter-5.5.0.jar:/Users/nathan/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar:/Users/nathan/.m2/repository/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar:"/>
@@ -29,7 +29,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722225818587_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722234839716_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="17.0.13+10-LTS-268"/>
@@ -57,26 +57,25 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testTransactionHistory" classname="Test.database.IntegrationTests" time="0.086">
-    <system-out><![CDATA[22:59:09.969 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3fe5826
-22:59:09.990 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
-22:59:10.003 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - After adding stats (total=2, active=1, idle=1, waiting=0)
-22:59:10.018 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
-22:59:10.037 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
-22:59:10.041 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@32b7da99
+  <testcase name="testTransactionHistory" classname="Test.database.IntegrationTests" time="0.08">
+    <system-out><![CDATA[23:49:31.789 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - After adding stats (total=2, active=1, idle=1, waiting=0)
+23:49:31.798 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
+23:49:31.824 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1dc9d1aa
+23:49:31.824 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
+23:49:31.836 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
 ]]></system-out>
   </testcase>
-  <testcase name="testTransferBetweenAccounts" classname="Test.database.IntegrationTests" time="0.043">
-    <system-out><![CDATA[22:59:10.065 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
-22:59:10.070 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
-22:59:10.072 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - After adding stats (total=3, active=1, idle=2, waiting=0)
-22:59:10.085 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
+  <testcase name="testTransferBetweenAccounts" classname="Test.database.IntegrationTests" time="0.049">
+    <system-out><![CDATA[23:49:31.857 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - After adding stats (total=3, active=1, idle=2, waiting=0)
+23:49:31.867 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
+23:49:31.871 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
+23:49:31.889 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
 ]]></system-out>
   </testcase>
-  <testcase name="testDepositAndWithdraw" classname="Test.database.IntegrationTests" time="0.03">
-    <system-out><![CDATA[22:59:10.105 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
-22:59:10.112 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
-22:59:10.118 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
+  <testcase name="testDepositAndWithdraw" classname="Test.database.IntegrationTests" time="0.031">
+    <system-out><![CDATA[23:49:31.911 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
+23:49:31.918 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
+23:49:31.925 [main] DEBUG com.zaxxer.hikari.pool.PoolBase -- HikariPool-1 - Reset (autoCommit) on connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
 ]]></system-out>
   </testcase>
 </testsuite>

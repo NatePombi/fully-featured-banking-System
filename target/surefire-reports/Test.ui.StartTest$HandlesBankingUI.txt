@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Test.ui.StartTest$HandlesBankingUI
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.106 s -- in Test.ui.StartTest$HandlesBankingUI
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.141 s -- in Test.ui.StartTest$HandlesBankingUI

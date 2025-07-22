@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Test.ui.StartTest$DeleteAccountTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.099 s -- in Test.ui.StartTest$DeleteAccountTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.097 s -- in Test.ui.StartTest$DeleteAccountTest
