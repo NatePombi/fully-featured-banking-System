@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Test.database.UserDaoIntegrationTest" time="1.372" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Test.database.UserDaoIntegrationTest" time="0.972" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ZA"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722221555123_3.jar /Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire 2025-07-22T22-15-54_981-jvmRun1 surefire-20250722221555123_1tmp surefire_0-20250722221555123_2tmp"/>
+    <property name="sun.java.command" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722225818587_3.jar /Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire 2025-07-22T22-58-18_444-jvmRun1 surefire-20250722225818587_1tmp surefire_0-20250722225818587_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/test-classes:/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/classes:/Users/nathan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.2/junit-jupiter-api-5.11.2.jar:/Users/nathan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/nathan/.m2/repository/org/junit/platform/junit-platform-commons/1.11.2/junit-platform-commons-1.11.2.jar:/Users/nathan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/nathan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.2/junit-jupiter-engine-5.11.2.jar:/Users/nathan/.m2/repository/org/junit/platform/junit-platform-engine/1.11.2/junit-platform-engine-1.11.2.jar:/Users/nathan/.m2/repository/org/slf4j/slf4j-api/2.0.13/slf4j-api-2.0.13.jar:/Users/nathan/.m2/repository/ch/qos/logback/logback-classic/1.4.11/logback-classic-1.4.11.jar:/Users/nathan/.m2/repository/ch/qos/logback/logback-core/1.4.11/logback-core-1.4.11.jar:/Users/nathan/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/Users/nathan/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/Users/nathan/.m2/repository/org/mockito/mockito-core/5.5.0/mockito-core-5.5.0.jar:/Users/nathan/.m2/repository/net/bytebuddy/byte-buddy/1.14.6/byte-buddy-1.14.6.jar:/Users/nathan/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.6/byte-buddy-agent-1.14.6.jar:/Users/nathan/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/nathan/.m2/repository/org/mockito/mockito-junit-jupiter/5.5.0/mockito-junit-jupiter-5.5.0.jar:/Users/nathan/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar:/Users/nathan/.m2/repository/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar:"/>
@@ -29,7 +29,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722221555123_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722225818587_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="17.0.13+10-LTS-268"/>
@@ -57,55 +57,50 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testAddUser" classname="Test.database.UserDaoIntegrationTest" time="1.353">
-    <system-out><![CDATA[22:16:45.840 [main] DEBUG com.zaxxer.hikari.HikariConfig -- HikariPool-1 - configuration:
-22:16:45.857 [main] DEBUG com.zaxxer.hikari.HikariConfig -- allowPoolSuspension.............false
-22:16:45.858 [main] DEBUG com.zaxxer.hikari.HikariConfig -- autoCommit......................true
-22:16:45.858 [main] DEBUG com.zaxxer.hikari.HikariConfig -- catalog.........................none
-22:16:45.858 [main] DEBUG com.zaxxer.hikari.HikariConfig -- connectionInitSql...............none
-22:16:45.858 [main] DEBUG com.zaxxer.hikari.HikariConfig -- connectionTestQuery.............none
-22:16:45.858 [main] DEBUG com.zaxxer.hikari.HikariConfig -- connectionTimeout...............30000
-22:16:45.858 [main] DEBUG com.zaxxer.hikari.HikariConfig -- dataSource......................none
-22:16:45.858 [main] DEBUG com.zaxxer.hikari.HikariConfig -- dataSourceClassName.............none
-22:16:45.859 [main] DEBUG com.zaxxer.hikari.HikariConfig -- dataSourceJNDI..................none
-22:16:45.859 [main] DEBUG com.zaxxer.hikari.HikariConfig -- dataSourceProperties............{password=<masked>}
-22:16:45.859 [main] DEBUG com.zaxxer.hikari.HikariConfig -- driverClassName.................none
-22:16:45.859 [main] DEBUG com.zaxxer.hikari.HikariConfig -- exceptionOverrideClassName......none
-22:16:45.859 [main] DEBUG com.zaxxer.hikari.HikariConfig -- healthCheckProperties...........{}
-22:16:45.860 [main] DEBUG com.zaxxer.hikari.HikariConfig -- healthCheckRegistry.............none
-22:16:45.860 [main] DEBUG com.zaxxer.hikari.HikariConfig -- idleTimeout.....................60000
-22:16:45.860 [main] DEBUG com.zaxxer.hikari.HikariConfig -- initializationFailTimeout.......1
-22:16:45.860 [main] DEBUG com.zaxxer.hikari.HikariConfig -- isolateInternalQueries..........false
-22:16:45.861 [main] DEBUG com.zaxxer.hikari.HikariConfig -- jdbcUrl.........................jdbc:mysql://localhost:3306/bankingTest
-22:16:45.861 [main] DEBUG com.zaxxer.hikari.HikariConfig -- keepaliveTime...................0
-22:16:45.861 [main] DEBUG com.zaxxer.hikari.HikariConfig -- leakDetectionThreshold..........0
-22:16:45.861 [main] DEBUG com.zaxxer.hikari.HikariConfig -- maxLifetime.....................1800000
-22:16:45.861 [main] DEBUG com.zaxxer.hikari.HikariConfig -- maximumPoolSize.................10
-22:16:45.861 [main] DEBUG com.zaxxer.hikari.HikariConfig -- metricRegistry..................none
-22:16:45.861 [main] DEBUG com.zaxxer.hikari.HikariConfig -- metricsTrackerFactory...........none
-22:16:45.862 [main] DEBUG com.zaxxer.hikari.HikariConfig -- minimumIdle.....................2
-22:16:45.862 [main] DEBUG com.zaxxer.hikari.HikariConfig -- password........................<masked>
-22:16:45.862 [main] DEBUG com.zaxxer.hikari.HikariConfig -- poolName........................"HikariPool-1"
-22:16:45.862 [main] DEBUG com.zaxxer.hikari.HikariConfig -- readOnly........................false
-22:16:45.863 [main] DEBUG com.zaxxer.hikari.HikariConfig -- registerMbeans..................false
-22:16:45.863 [main] DEBUG com.zaxxer.hikari.HikariConfig -- scheduledExecutor...............none
-22:16:45.863 [main] DEBUG com.zaxxer.hikari.HikariConfig -- schema..........................none
-22:16:45.863 [main] DEBUG com.zaxxer.hikari.HikariConfig -- threadFactory...................internal
-22:16:45.863 [main] DEBUG com.zaxxer.hikari.HikariConfig -- transactionIsolation............default
-22:16:45.863 [main] DEBUG com.zaxxer.hikari.HikariConfig -- username........................"root"
-22:16:45.863 [main] DEBUG com.zaxxer.hikari.HikariConfig -- validationTimeout...............5000
-22:16:45.865 [main] INFO com.zaxxer.hikari.HikariDataSource -- HikariPool-1 - Starting...
-22:16:45.921 [main] DEBUG com.zaxxer.hikari.util.DriverDataSource -- Loaded driver with class name com.mysql.cj.jdbc.Driver for jdbcUrl=jdbc:mysql://localhost:3306/bankingTest
-22:16:46.851 [main] INFO com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
-22:16:46.858 [main] INFO com.zaxxer.hikari.HikariDataSource -- HikariPool-1 - Start completed.
-22:16:46.962 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Before cleanup stats (total=1, active=1, idle=0, waiting=0)
-22:16:46.963 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - After cleanup  stats (total=1, active=1, idle=0, waiting=0)
-22:16:47.000 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@68de6108
-22:16:47.033 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - After adding stats (total=2, active=1, idle=1, waiting=0)
+  <testcase name="testAddUser" classname="Test.database.UserDaoIntegrationTest" time="0.953">
+    <system-out><![CDATA[22:59:09.108 [main] DEBUG com.zaxxer.hikari.HikariConfig -- HikariPool-1 - configuration:
+22:59:09.123 [main] DEBUG com.zaxxer.hikari.HikariConfig -- allowPoolSuspension.............false
+22:59:09.123 [main] DEBUG com.zaxxer.hikari.HikariConfig -- autoCommit......................true
+22:59:09.123 [main] DEBUG com.zaxxer.hikari.HikariConfig -- catalog.........................none
+22:59:09.123 [main] DEBUG com.zaxxer.hikari.HikariConfig -- connectionInitSql...............none
+22:59:09.123 [main] DEBUG com.zaxxer.hikari.HikariConfig -- connectionTestQuery.............none
+22:59:09.124 [main] DEBUG com.zaxxer.hikari.HikariConfig -- connectionTimeout...............30000
+22:59:09.124 [main] DEBUG com.zaxxer.hikari.HikariConfig -- dataSource......................none
+22:59:09.124 [main] DEBUG com.zaxxer.hikari.HikariConfig -- dataSourceClassName.............none
+22:59:09.124 [main] DEBUG com.zaxxer.hikari.HikariConfig -- dataSourceJNDI..................none
+22:59:09.124 [main] DEBUG com.zaxxer.hikari.HikariConfig -- dataSourceProperties............{password=<masked>}
+22:59:09.125 [main] DEBUG com.zaxxer.hikari.HikariConfig -- driverClassName.................none
+22:59:09.125 [main] DEBUG com.zaxxer.hikari.HikariConfig -- exceptionOverrideClassName......none
+22:59:09.125 [main] DEBUG com.zaxxer.hikari.HikariConfig -- healthCheckProperties...........{}
+22:59:09.125 [main] DEBUG com.zaxxer.hikari.HikariConfig -- healthCheckRegistry.............none
+22:59:09.125 [main] DEBUG com.zaxxer.hikari.HikariConfig -- idleTimeout.....................60000
+22:59:09.125 [main] DEBUG com.zaxxer.hikari.HikariConfig -- initializationFailTimeout.......1
+22:59:09.125 [main] DEBUG com.zaxxer.hikari.HikariConfig -- isolateInternalQueries..........false
+22:59:09.126 [main] DEBUG com.zaxxer.hikari.HikariConfig -- jdbcUrl.........................jdbc:mysql://localhost:3306/bankingTest
+22:59:09.126 [main] DEBUG com.zaxxer.hikari.HikariConfig -- keepaliveTime...................0
+22:59:09.126 [main] DEBUG com.zaxxer.hikari.HikariConfig -- leakDetectionThreshold..........0
+22:59:09.126 [main] DEBUG com.zaxxer.hikari.HikariConfig -- maxLifetime.....................1800000
+22:59:09.126 [main] DEBUG com.zaxxer.hikari.HikariConfig -- maximumPoolSize.................10
+22:59:09.126 [main] DEBUG com.zaxxer.hikari.HikariConfig -- metricRegistry..................none
+22:59:09.126 [main] DEBUG com.zaxxer.hikari.HikariConfig -- metricsTrackerFactory...........none
+22:59:09.126 [main] DEBUG com.zaxxer.hikari.HikariConfig -- minimumIdle.....................2
+22:59:09.126 [main] DEBUG com.zaxxer.hikari.HikariConfig -- password........................<masked>
+22:59:09.127 [main] DEBUG com.zaxxer.hikari.HikariConfig -- poolName........................"HikariPool-1"
+22:59:09.127 [main] DEBUG com.zaxxer.hikari.HikariConfig -- readOnly........................false
+22:59:09.127 [main] DEBUG com.zaxxer.hikari.HikariConfig -- registerMbeans..................false
+22:59:09.127 [main] DEBUG com.zaxxer.hikari.HikariConfig -- scheduledExecutor...............none
+22:59:09.127 [main] DEBUG com.zaxxer.hikari.HikariConfig -- schema..........................none
+22:59:09.127 [main] DEBUG com.zaxxer.hikari.HikariConfig -- threadFactory...................internal
+22:59:09.127 [main] DEBUG com.zaxxer.hikari.HikariConfig -- transactionIsolation............default
+22:59:09.127 [main] DEBUG com.zaxxer.hikari.HikariConfig -- username........................"root"
+22:59:09.128 [main] DEBUG com.zaxxer.hikari.HikariConfig -- validationTimeout...............5000
+22:59:09.129 [main] INFO com.zaxxer.hikari.HikariDataSource -- HikariPool-1 - Starting...
+22:59:09.178 [main] DEBUG com.zaxxer.hikari.util.DriverDataSource -- Loaded driver with class name com.mysql.cj.jdbc.Driver for jdbcUrl=jdbc:mysql://localhost:3306/bankingTest
+22:59:09.831 [main] INFO com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6484364f
+22:59:09.837 [main] INFO com.zaxxer.hikari.HikariDataSource -- HikariPool-1 - Start completed.
+22:59:09.939 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Before cleanup stats (total=1, active=1, idle=0, waiting=0)
+22:59:09.940 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - After cleanup  stats (total=1, active=1, idle=0, waiting=0)
 ]]></system-out>
   </testcase>
-  <testcase name="testDeleteUser" classname="Test.database.UserDaoIntegrationTest" time="0.017">
-    <system-out><![CDATA[22:16:47.056 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool -- HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@597c28b3
-]]></system-out>
-  </testcase>
+  <testcase name="testDeleteUser" classname="Test.database.UserDaoIntegrationTest" time="0.017"/>
 </testsuite>

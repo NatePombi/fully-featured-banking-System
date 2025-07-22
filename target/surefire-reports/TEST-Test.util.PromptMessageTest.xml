@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Test.util.PromptMessageTest" time="0.045" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Test.util.PromptMessageTest" time="0.033" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ZA"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722221555123_3.jar /Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire 2025-07-22T22-15-54_981-jvmRun1 surefire-20250722221555123_1tmp surefire_0-20250722221555123_2tmp"/>
+    <property name="sun.java.command" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722225818587_3.jar /Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire 2025-07-22T22-58-18_444-jvmRun1 surefire-20250722225818587_1tmp surefire_0-20250722225818587_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/test-classes:/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/classes:/Users/nathan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.2/junit-jupiter-api-5.11.2.jar:/Users/nathan/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/nathan/.m2/repository/org/junit/platform/junit-platform-commons/1.11.2/junit-platform-commons-1.11.2.jar:/Users/nathan/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/nathan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.2/junit-jupiter-engine-5.11.2.jar:/Users/nathan/.m2/repository/org/junit/platform/junit-platform-engine/1.11.2/junit-platform-engine-1.11.2.jar:/Users/nathan/.m2/repository/org/slf4j/slf4j-api/2.0.13/slf4j-api-2.0.13.jar:/Users/nathan/.m2/repository/ch/qos/logback/logback-classic/1.4.11/logback-classic-1.4.11.jar:/Users/nathan/.m2/repository/ch/qos/logback/logback-core/1.4.11/logback-core-1.4.11.jar:/Users/nathan/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/Users/nathan/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/Users/nathan/.m2/repository/org/mockito/mockito-core/5.5.0/mockito-core-5.5.0.jar:/Users/nathan/.m2/repository/net/bytebuddy/byte-buddy/1.14.6/byte-buddy-1.14.6.jar:/Users/nathan/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.6/byte-buddy-agent-1.14.6.jar:/Users/nathan/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/nathan/.m2/repository/org/mockito/mockito-junit-jupiter/5.5.0/mockito-junit-jupiter-5.5.0.jar:/Users/nathan/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar:/Users/nathan/.m2/repository/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar:"/>
@@ -29,7 +29,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722221555123_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/nathan/Downloads/untitled folder 2/FullyFeaturedBankingApp/target/surefire/surefirebooter-20250722225818587_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="17.0.13+10-LTS-268"/>
@@ -57,7 +57,7 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testBigDec" classname="Test.util.PromptMessageTest" time="0.04">
+  <testcase name="testBigDec" classname="Test.util.PromptMessageTest" time="0.029">
     <system-out><![CDATA[Enter: ]]></system-out>
   </testcase>
   <testcase name="testBigIntRec" classname="Test.util.PromptMessageTest" time="0.002">
