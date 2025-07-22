@@ -1,9 +1,16 @@
 # Fully Featured Banking System
 
-A fully functional console-based banking system built in Java. It includes secure user authentication, account and transaction management, and persistent storage using a relational database. The application follows object-oriented design principles and a modular architecture for maintainability and scalability.
+A robust and scalable console-based banking system built with Java 17. It features secure authentication, modular service design, real database persistence (MySQL), and automated CI + test coverage reporting. Designed from the ground up to follow clean code, SOLID principles, and real-world enterprise patterns.
+
 ## Overview
 
-This project simulates a simple banking system supporting multiple users, each with one or more bank accounts. Users can perform deposits, withdrawals, and transfers. All actions are logged in transaction history and persisted in a database.
+This project simulates a simple yet complete banking system supporting multiple users, each managing multiple bank accounts. Features include:
+
+    Secure login & registration with password hashing
+    Deposits, withdrawals, and transfers with validations
+    Real-time transaction history (persisted in MySQL)
+    Robust service + repository layers with test coverage
+    CI-ready with code coverage (JaCoCo)
 
 ## Features
 
@@ -32,8 +39,11 @@ This project simulates a simple banking system supporting multiple users, each w
    - Explicit transaction commit and rollback for data consistency
 
 - Testing
-  - Unit tests for core logic and services
-  - Integration tests for database operations
+  - Unit tests for utilities, services, and logic
+  - Integration tests for real DB interactions (test schema)
+  - UI logic tested independently
+  - CI pipeline runs on push via GitHub Actions
+  - Code coverage powered by JaCoCo
 
 - Modular Design
   - Uses interfaces and separation of concerns
@@ -43,6 +53,14 @@ This project simulates a simple banking system supporting multiple users, each w
   - JDBC-based connection to MySQL
   - Data persistence for users, accounts, and transactions
 
+## System Architecture
+
+  - Clean separation between UI, service, model, and persistence
+  - Interfaces & dependency injection for testability
+  - Connection pooling with HikariCP
+  - Manual JDBC transactions (commit/rollback) for consistency
+
+
 ## Technologies Used
 
 - Java 17
@@ -50,21 +68,11 @@ This project simulates a simple banking system supporting multiple users, each w
 - MySQL
 - HikariCP
 - Logback + SLF4J
-- JUnit
-- Git and GitHub
-- No Maven/Gradle needed
+- JUnit 5 & Mockito (testing)
+- Maven (build & dependency management)
+- JaCoCo (code coverage)
+- GitHub Actions (CI)
 
-## Project Structure
-
-src/
-├── app/
-├── exception/
-├── model/
-├── repository/
-├── service/
-├── test/
-├── ui/
-└── util/
 
 
 ----
@@ -72,15 +80,21 @@ src/
 
 ## Setting Up MySQL
 
-1. Install MySQL and create a banking database.
+1. git clone https://github.com/NatePombi/fully-featured-banking-System.git
 
-2. Configure db.properties
-db.url=jdbc:mysql://localhost:3306/banking  -> add your own configurations
-db.name=root
-db.password=yourpassword
+2. Install MySQL and create a banking database.
+    Add your credentials in db.properties:
+    Configure db.properties:
+        db.url=jdbc:mysql://localhost:3306/banking  -> add your own configurations
+        db.name=root
+        db.password=yourpassword
 
 
 3. Run the app — it will auto-create necessary tables.
+
+        Build and run via Maven or your IDE.
+        Launch Main class from app/ package.
+        Interact through the console UI.
 
 
 ## Running the Application
@@ -88,13 +102,24 @@ db.password=yourpassword
     Follow on-screen prompts in the console UI to register, login, and manage accounts.
 
 ## Testing
-    Unit tests are located in the test package and use JUnit.
-    Integration tests cover database operations.
-    Run tests using your IDE or build tool (e.g., Maven, Gradle).
+
+    Unit & Integration Tests:
+    copy this into the terminal: mvn clean test
+        Unit tests cover services, logic, and utilities
+        Integration tests hit the real DB (with test tables)
+
+      -Coverage Report:
+        target/site/jacoco/index.html
+
+## Continuous Integration
+    This project includes automated CI via GitHub Actions:
+        Tests run on every push
+        Coverage checked with JaCoCo
+        Easy integration into future pipelines (e.g., deployment)
 
 ## Future Work
-    Add full-stack frontend integration using JavaFX or React for improved user experience.
-    Implement additional account types and banking features.
+    Migrate to a JavaFX or React frontend
+    Add new account types (e.g., credit, joint accounts)
     Enhance security measures (e.g., multi-factor authentication).
 
 ## Author
@@ -103,14 +128,12 @@ db.password=yourpassword
     GitHub: https://github.com/NatePombi
     LinkedIn: https://www.linkedin.com/in/nathanpombi/
 
-## Future Work
-    Add full-stack frontend integration using JavaFX or React for improved user experience.
-    Implement additional account types and banking features.
-    Enhance security measures (e.g., multi-factor authentication).
+
 
 
 ## Recruiter Notes
- Built entirely with Java, JDBC, MySQL, JUnit, and Mockito
- Includes comprehensive test coverage (unit + integration)
- Modular, testable architecture following best practices
- Next step: full-stack frontend migration (JavaFX/React)
+     Built entirely in Java 17, JDBC, MySQL, JUnit, and Mockito
+     Full CI pipeline using GitHub Actions and JaCoCo
+     Modular architecture with clear separation of concerns
+     Real DB interactions + isolated test database for integration tests
+     Next step: Migrate to a full-stack experience (JavaFX or React)
