@@ -8,11 +8,26 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: bankingTest
+          MYSQL_USER: root
+          MYSQL_PASSWORD: MasokoBums
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     env:
-      DB_TEST_URL: jdbc:mysql://localhost:3306/bankingTest
+      DB_TEST_URL: jdbc:mysql://127.0.0.1:3306/bankingTest
       DB_USERNAME: root
       DB_PASSWORD: MasokoBums
 
@@ -25,6 +40,17 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Wait for MySQL to be ready
+        run: |
+          for i in {30..0}; do
+            if mysqladmin ping -h127.0.0.1 -uroot -pMasokoBums --silent; then
+              echo "MySQL is up"
+              break
+            fi
+            echo 'Waiting for MySQL...'
+            sleep 1
+          done
 
       - name: Build and run tests with coverage
         run: mvn -B clean verify
