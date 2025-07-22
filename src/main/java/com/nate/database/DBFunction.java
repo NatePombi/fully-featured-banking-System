@@ -33,18 +33,25 @@ public class DBFunction {
 
             prop.load(inputStream);
             HikariConfig config = new HikariConfig();
-            if(Configuration.config){
-                config.setJdbcUrl(prop.getProperty("dbt.url"));
-            }else {
-                config.setJdbcUrl(prop.getProperty("db.url"));
+            String envUrl = null;
+            if (Configuration.config) {
+                envUrl = System.getenv("DB_TEST_URL");
+            } else {
+                envUrl = System.getenv("DB_URL");
             }
-            config.setUsername(prop.getProperty("db.name"));
-            config.setPassword(prop.getProperty("db.password"));
 
-            config.setMaximumPoolSize(Integer.parseInt(prop.getProperty("hikari.maximumPoolSize","10")));
-            config.setMinimumIdle(Integer.parseInt(prop.getProperty("hikari.minimumIdle","2")));
-            config.setIdleTimeout(Long.parseLong(prop.getProperty("hikari.idleTimeout","60000")));
-            config.setConnectionTimeout(Long.parseLong(prop.getProperty("hikari.connectionTimeout","30000")));
+            String jdbcUrl = (envUrl != null && !envUrl.isEmpty()) ? envUrl :
+                    (Configuration.config ? prop.getProperty("dbt.url") : prop.getProperty("db.url"));
+
+            String envUser = System.getenv("DB_USERNAME");
+            String user = (envUser != null && !envUser.isEmpty()) ? envUser : prop.getProperty("db.name");
+
+            String envPass = System.getenv("DB_PASSWORD");
+            String pass = (envPass != null && !envPass.isEmpty()) ? envPass : prop.getProperty("db.password");
+
+            config.setJdbcUrl(jdbcUrl);
+            config.setUsername(user);
+            config.setPassword(pass);
 
             dataSource = new HikariDataSource(config);
         }

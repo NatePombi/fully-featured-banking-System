@@ -11,6 +11,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      DB_TEST_URL: jdbc:mysql://localhost:3306/bankingTest
+      DB_USERNAME: root
+      DB_PASSWORD: MasokoBums
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,10 +27,11 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and run tests with coverage
-        run: mvn clean verify
+        run: mvn -B clean verify
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: target/site/jacoco/jacoco.xml
           fail_ci_if_error: true
