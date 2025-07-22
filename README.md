@@ -136,4 +136,4 @@ This project simulates a simple yet complete banking system supporting multiple 
      Full CI pipeline using GitHub Actions and JaCoCo
      Modular architecture with clear separation of concerns
      Real DB interactions + isolated test database for integration tests
-     Next step: Migrate to a full-stack experience (JavaFX or React)
+     Next step: Migrate to a full-stack experience (JavaFX or React),
